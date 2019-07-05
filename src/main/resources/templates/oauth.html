@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>内嵌(自定义二维码)</title>
+    <link rel="stylesheet" type="text/css" href="/css/zeroModal.css" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="/js/zeroModal.min.js"></script>
+    <script type="text/javascript" src="/js/qrcode.min.js"></script>
+</head>
+<style>
+</style>
+
+<body>
+
+<ul class="login-ul" style="list-style: none; height: 50px;">
+    <li th:if="${session.oauth == null}">
+        <a href="javascript:_setOpacity();" style="margin-left: 20px;">登录</a>
+    </li>
+    <li th:if="${session.oauth != null}" style="width: 200px;">
+        <img width="40px" height="40px;" th:src="${session.oauth.headimgurl}"
+        style="margin-left: 20px;">
+        <a href="/oauth/exit" style="color: #2196f3; line-height: 50px;
+        text-decoration: none; margin-left: 20px;">退出</a>
+        <!--<a th:href="@{'/dd?headimgurl='+-->
+        <!--${session.encodeHeadImgUrl}+'&nickname='+${session.oauth.nickname}}">go</a>-->
+        &nbsp;&nbsp;&nbsp;
+        <div style="display: inline-block;" th:include="file"></div>
+
+    </li>
+</ul>
+
+
+
+<script type="text/javascript">
+    var oauthUrl, url = window.location.href;
+    $.post("/oauth/get/verify",function (data) {
+        console.log(oauthUrl);
+        oauthUrl = data.oauthUrl;
+    })
+    function _setOpacity() {
+        zeroModal.show({
+            title: '<h1><img src="/img/weixin.png">' +
+            '<span style="position: relative;left: 35px; font-size: 30px;">微信登录</span></h1>' ,
+            content: '<div id="qrcode""></div>',
+            width: '250px',
+            height: '320px',
+            opacity: 0.8
+        });
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: oauthUrl,
+            width: 250,
+            height: 250,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+        loginWeChat();
+    }
+    function loginWeChat() {
+        var timer = setInterval(function(){weChatVerify(timer)},1000);
+    }
+    function weChatVerify(timer){
+        $.post("/oauth/wechat/verify",function (data) {
+            if(data.success){
+                clearInterval(timer);
+                window.location.href=url;
+            }
+        });
+    }
+</script>
+</body>
+</html>

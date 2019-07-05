@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+		   <link href="/yf-cssjsimg/public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/index.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/loadOrRegister.css" rel="stylesheet" type="text/css">
+      <link href="/yf-cssjsimg/public/style/lecturer.css" rel="stylesheet" type="text/css">
+       <script src="/yf-cssjsimg/public/script/lecturer-something.js"></script>
+        <link href="/yf-cssjsimg/public/style/main-red-light.css" rel="stylesheet" type="text/css">
+			  <link rel="stylesheet" href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" />
+    <link rel="stylesheet" href="/yf-cssjsimg/public/style/app.css" />
+    <link rel="stylesheet" href="/yf-cssjsimg/public/style/problemset.css" />
+        
+     <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>-->
+     <!--<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" />-->
+     <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" />-->
+    <link href="/yf-cssjsimg/public/style/semantic.min.css" rel="stylesheet" type="text/css">
+			<style>
+    .nav.nav-tabs > li > a {
+        padding: 5px 30px 15px;
+    }
+
+    @media (max-width: 1199px) {
+        .nav.nav-tabs > li > a {
+            padding: 5px 10px 10px;
+            font-size: 14px;
+        }
+    }
+</style>
+<script type="text/javascript">
+        /*function baidusearch(id) {
+          var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + encodeURIComponent(document.getElementById(id).value);
+          window.open(url,"_blank");
+        }*/
+        function coursesearch(id) {
+            var url = "/search" + "?q=" + encodeURIComponent(document.getElementById(id).value);
+            window.open(url, "_self");
+        }
+
+        function baidusearch() {
+            var sWords = window.location.href.split('=')[1] || '';
+            var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + sWords;
+            window.open(url, "_blank");
+        }
+     
+function display(y){$(y).style.display=($(y).style.display=="none")?"":"none";} 
+function $(s){return document.getElementById(s);}
+
+    </script>
+  </head>
+ <body class="userpage bg-blank" onbeforeunload="return CheckUnsave();" style="visibility: visible;">
+ <div class="index-header">
+     <div class="header-left">
+         <div class="header-left-logo">Xing educate</div>
+         <ul class="header-left-list">
+             <li> <a href="/index">首页</a></li>
+             <li> <a href="/alltimu">实战</a></li>
+         </ul>
+     </div>
+     <div class="header-right">
+         <div class="header-right-search">
+             <input type="text" name="" id="keyword" onkeyup="getMoreContents()"  onfocus="getMoreContents()" >
+             <input type="submit" name="" value=" ">
+
+             <div id="popDiv" style="position: absolute">
+                 <table id="content_table" bgcolor="#FFFAFA" border="0"
+                        cellspacing="0" cellpadding="0">
+                     <tbody id="content_table_body">
+                     <!-- 动态数据在这里显示 -->
+
+                     </tbody>
+                 </table>
+             </div>
+
+         </div>
+         <div class="header-right-message glyphicon glyphicon-envelope hide"></div>
+         <div class="header-right-usr hide"><img src="../../public/images/pc/index/usr2.jpg"></div>
+         <div class="header-right-loadbtn"><div th:include="oauth"></div></div>
+         <!--<div class="header-right-registerbtn">注册</div>-->
+     </div>
+ </div>
+
+
+
+
+<div class="ui header container">
+    <div class="ui large breadcrumb">
+      <a class="active section" th:href="@{/}"><i class="home icon"></i>题库首页</a>
+     
+        
+    </div>
+    <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-10">
+                </div>
+                <div class="col-md-2"><!--Btn-->
+                    <!--<button type="button" class="btn btn-success" data-toggle="modal" id="addQuestionBtn" 
+                    	data-target="#addQusetionModal"><i class="fa fa-plus"></i>添加题目</button>-->
+               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"></i>添加题目</button>
+                </div>
+            </div>
+</div>
+
+<div class="ui problemSet container">
+    <div class="ui secondary pointing menu">
+        <a class="active item"><i class="book icon"></i>题型类别</a>
+    </div>
+    <!-- 第一排 -->
+    <div class="ui four column stackable grid">
+	       <!-- <div class="column" th:each="item,itemStats : ${data['subjects']}">
+	            <div class="ui fluid card">
+	                <a href="javascript:void(0)" class="image">
+	                    <img th:src="@{'/upload/images/'+${item.imgUrl}}" style="max-height: 240px;" />
+	                </a>
+			                <div class="content">
+			                    <div class="header">-->
+			                        <!-- TODO::跳转处理 -->
+			                        <!--<a th:if="${current_account != null}" th:href="@{'/problemset/'+${item.id}+'/problems'}" th:text="${item.name}">计算机组成原理</a>-->
+			                <!--        <a th:if="${current_account == null}" th:onclick="'app.showLogin()'" th:text="${item.name}">java</a>
+			                    </div>
+			                    <p class="meta">
+			                        <i class="user icon"></i>
+			                        <a href="javascript:void(0)">admin</a>
+			                    </p>
+			                    <p class="description"></p>
+			                </div>
+			                <div class="extra content">
+			                    <span class="right floated">
+			                        <span>
+			                        <i class="globe icon"></i>私有题库
+			                        </span>
+			                    </span>
+			                    <i class="file text outline icon"></i>5题
+			                    <span th:text="${item.questionNum}"></span>
+			                </div>
+	            </div>
+	        </div>-->
+        <!-- 第一列 -->
+
+        <div class="column" th:each="subject:${subjects}">
+            <div class="ui fluid card">
+                <a href="javascript:void(0)" class="image">
+                    <img th:src="${subject.img}" style="max-height: 240px;" />
+                </a>
+                <div class="content">
+                    <div class="header">
+                        <a th:href="@{'/timuliebiao/'+${subject.suid}}" th:text="${subject.suname}">java</a>
+                    </div>
+                    <p class="description"></p>
+                </div>
+                <div class="extra content">
+	                    <span class="right floated">
+	                        <span>
+	                        <i class="globe icon"></i>私有题库
+	                        </span>
+	                    </span>
+                    <i class="file text outline icon"></i>[[${subject.total}]]题
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!--新增窗口-->  <!--bootbox modal fade-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--<div id="addQuestionModal" class=" modal fade" tabindex="-1" role="dialog" >-->
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增题目</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" onsubmit="return false;">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目标题</label>
+                        <div class="col-sm-8">
+                            <input id="questionTitle" type="text" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目内容</label>
+                        <div class="col-sm-8">
+                            <textarea  id="questionContent" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目类型</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="questionType">
+                                <option th:value="java">java</option>
+                                <option th:value="python">python</option>
+                                <option th:value="数据结构">数据结构</option>
+                                <option th:value="神经网络">神经网络</option>
+                                <option th:value="实习题">实习题</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">A选项</label>
+                        <div class="col-sm-8">
+                            <input id="optionA" type="text" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">B选项</label>
+                        <div class="col-sm-8">
+                            <input id="optionB" type="text" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">C选项</label>
+                        <div class="col-sm-8">
+                            <input id="optionC" type="text" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">D选项</label>
+                        <div class="col-sm-8">
+                            <input id="optionD" type="text" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目答案</label>
+                        <div class="col-sm-8">
+                            <input  id="questionAnswer" type="text" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">答案解析</label>
+                        <div class="col-sm-8">
+                            <textarea  id="questionParse" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">题目难度</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="questionDifficulty" disabled>
+                                <option th:value="1">
+                                    一星难度
+                                </option>
+                                <option th:value="2">
+                                    二星难度
+                                </option>
+                                <option th:value="3">
+                                    三星难度
+                                </option>
+                                <option th:value="4">
+                                    四星难度
+                                </option>
+                                <option th:value="5">
+                                    五星难度
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="confirm" type="button" id="confirmAddQuestionBtn" class="btn btn-success radius">
+                    确定
+                </button>
+                <button data-bb-handler="cancel" type="button" id="cancelAddQuestionBtn" class="btn btn-danger radius"  data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 分页 -->
+<div class="ui subPage container" style="text-align: center;">
+    <div class="ui pagination menu" id="subPageMenu">
+       
+        <a th:onclick="'problemSetPage.firstPage()'" class="item">
+            首页
+        </a>
+        <a th:onclick="'problemSetPage.prevPage()'" class="item">
+            上一页
+        </a>
+        <a class="active item">
+            1
+        </a>
+        <a th:onclick="'problemSetPage.nextPage()'" class="item">
+            下一页
+        </a>
+        <a th:onclick="'problemSetPage.lastPage()'" class="item">
+            末页
+        </a>
+        
+    </div>
+</div>
+            
+		<div class="footer-outer">
+      <div class="footer"> 
+        <ul class="footer-propaganda">
+          <li class="footer-propagadan-frist"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-second"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-thrid"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-fourth"><a href="javascript:void();"></a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="javascript:void();">企业合作</a></li>
+          <li><a href="javascript:void();">人才招聘</a></li>
+          <li><a href="javascript:void();">联系我们</a></li>
+          <li><a href="javascript:void();">讲师招募</a></li>
+          <li><a href="javascript:void();">常见问题</a></li>
+          <li><a href="javascript:void();">意见反馈</a></li>
+          <li><a href="javascript:void();">慕课大学</a></li>
+          <li><a href="javascript:void();">友情链接</a></li>
+        </ul>
+        <div class="footer-divider"></div>
+        <div class="footer-copyright"><span>© 2017 127.0.0.1  京ICP备 130565564562号-2</span></div>
+      </div>
+   </div>
+
+<script src="/yf-cssjsimg/public/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/yf-cssjsimg/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/yf-cssjsimg/public/script/index.js"></script>
+<script src="/yf-cssjsimg/public/script/load.js"></script>
+<script th:inline="javascript">
+    $("#confirmAddQuestionBtn").on("click",function () {
+        if(![[${session.oauth}]]){
+            alert("请先登录");
+            return;
+        }
+        var formData = new FormData();
+        formData.append("title", $("#questionTitle").val());
+        formData.append("content", $("#questionContent").val());
+        formData.append("optiona",$("#optionA").val());
+        formData.append("optionb",$("#optionB").val());
+        formData.append("optionc",$("#optionC").val());
+        formData.append("optiond",$("#optionD").val());
+        formData.append("answer",$("#questionAnswer").val());
+        formData.append("parse", $("#questionParse").val());
+        formData.append("suname",$("#questionType").val());
+        $.ajax({
+            url:"/question/add",
+            type:"POST",
+            data:formData,
+            contentType:false,
+            processData:false,
+            success:function () {
+                window.location.href="/alltimu";
+            }
+        })
+
+    })
+
+
+
+</script>
+
+<!--
+<script language="javascript" type="text/javascript">
+
+
+
+    var avatarUrl = 'http://scb1a9q0-sb.qiqiuyun.net/files/user/2017/10-30/1347197f4226238699.png',
+            avatarPic = avatarUrl.replace('http:', 'http://' + window.location.host)
+    zhuge.identify('60992', {
+        name: 'xuebusi',
+        avatar: avatarPic
+    });
+    zhuge.track('页面打开', {
+        '页面名称': document.title
+    });
+    function zhugeTrack(evName, obj) {
+        zhuge.track(evName, obj)
+    }
+</script>-->
+
+
+          <script type="text/javascript">
+
+        /*function baidusearch(id) {
+          var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + encodeURIComponent(document.getElementById(id).value);
+          window.open(url,"_blank");
+        }*/
+        function coursesearch(id) {
+            var url = "/search" + "?q=" + encodeURIComponent(document.getElementById(id).value);
+            window.open(url, "_self");
+        }
+
+        function baidusearch() {
+            var sWords = window.location.href.split('=')[1] || '';
+            var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + sWords;
+            window.open(url, "_blank");
+        }
+    </script>
+    <!--<script language="javascript" type="text/javascript">
+    var avatarUrl = 'http://scb1a9q0-sb.qiqiuyun.net/files/user/2017/10-30/1347197f4226238699.png',
+            avatarPic = avatarUrl.replace('http:', 'http://' + window.location.host)
+    zhuge.identify('60992', {
+        name: 'xuebusi',
+        avatar: avatarPic
+    });
+    zhuge.track('页面打开', {
+        '页面名称': document.title
+    });
+    function zhugeTrack(evName, obj) {
+        zhuge.track(evName, obj)
+    }
+
+</script>-->
+	</body>
+</html>
+
+

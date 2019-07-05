@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+		   <link href="/yf-cssjsimg/public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/index.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/loadOrRegister.css" rel="stylesheet" type="text/css">
+      <link href="/yf-cssjsimg/public/style/lecturer.css" rel="stylesheet" type="text/css">
+       <!--<script src="/yf-cssjsimg/public/script/lecturer-something.js"></script>-->
+        <link href="/yf-cssjsimg/public/style/main-red-light.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/semantic.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" />
+    <link rel="stylesheet" href="/yf-cssjsimg/public/style/app.css" />
+    <link rel="stylesheet" href="/yf-cssjsimg/public/style/problemset.css" />
+     <link href="/yf-cssjsimg/public/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+       <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+      
+     <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+     
+    
+			<style>
+    .nav.nav-tabs > li > a {
+        padding: 5px 30px 15px;
+    }
+
+    @media (max-width: 1199px) {
+        .nav.nav-tabs > li > a {
+            padding: 5px 10px 10px;
+            font-size: 14px;
+        }
+    }
+</style>
+<script type="text/javascript">
+        /*function baidusearch(id) {
+          var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + encodeURIComponent(document.getElementById(id).value);
+          window.open(url,"_blank");
+        }*/
+        function coursesearch(id) {
+            var url = "/search" + "?q=" + encodeURIComponent(document.getElementById(id).value);
+            window.open(url, "_self");
+        }
+
+        function baidusearch() {
+            var sWords = window.location.href.split('=')[1] || '';
+            var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + sWords;
+            window.open(url, "_blank");
+        }
+        
+     
+function display(y){$(y).style.display=($(y).style.display=="none")?"":"none";} 
+function $(s){return document.getElementById(s);}
+
+    </script>
+  </head>
+ <body class="userpage bg-blank" onbeforeunload="return CheckUnsave();" style="visibility: visible;">
+ <div class="index-header">
+     <div class="header-left">
+         <div class="header-left-logo">Xing educate</div>
+         <ul class="header-left-list">
+             <li> <a href="/index">首页</a></li>
+             <li> <a href="/alltimu">实战</a></li>
+         </ul>
+     </div>
+     <div class="header-right">
+         <div class="header-right-search">
+             <input type="text" name="" id="keyword" onkeyup="getMoreContents()"  onfocus="getMoreContents()" >
+             <input type="submit" name="" value=" ">
+
+             <div id="popDiv" style="position: absolute">
+                 <table id="content_table" bgcolor="#FFFAFA" border="0"
+                        cellspacing="0" cellpadding="0">
+                     <tbody id="content_table_body">
+                     <!-- 动态数据在这里显示 -->
+
+                     </tbody>
+                 </table>
+             </div>
+
+         </div>
+         <div class="header-right-message glyphicon glyphicon-envelope hide"></div>
+         <div class="header-right-usr hide"><img src="../../public/images/pc/index/usr2.jpg"></div>
+         <div class="header-right-loadbtn"><div th:include="oauth"></div></div>
+         <!--<div class="header-right-registerbtn">注册</div>-->
+     </div>
+ </div>
+		
+		
+		
+		
+		
+<div class="ui header container">
+    <div class="ui large breadcrumb">
+        <a class="section" href="/alltimu"><i class="home icon"></i>题库首页</a>
+       
+        <i class="right chevron icon divider"></i>
+        <div class="active section" th:text="${suname}"><a href="#">     数据结构与算法</a> </div>
+    </div>
+</div>
+
+<div class="ui problemList container">
+  <!--  <div class="ui secondary pointing menu">
+       <a class="active item"><i class="list icon"></i>题目列表</a>
+    </div>
+    <div class="ui accordion segment">
+        <div class="title"><i class="dropdown icon"></i>筛选</div>
+        <form class="content ui form segment">
+            <div class="two stackable fields">
+                <div class="field">
+                    <label>题目描述</label>
+                    <input placeholder="请输入相关题目描述" type="text" />
+                </div>
+                <div class="field">
+                    <label>题目难度</label>
+                    <select class="ui fluid dropdown">
+                        <option value="1">一星难度</option>
+                        <option value="2">两星难度</option>
+                        <option value="3">三星难度</option>
+                        <option value="4">四星难度</option>
+                        <option value="5">五星难度</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="positive ui button" value="查询" />
+        </form>
+    </div>
+    -->
+    
+    
+    
+    
+    
+     <div class="ui accordion segment">
+       <span class="caret">
+       <!--<i class="dropdown icon"></i>--></span>
+        <form class="content ui form segment">
+            <div class="two stackable fields">
+                <div class="field">
+                    <label>题目描述</label>
+                    <input placeholder="请输入相关题目描述" type="text" />
+                </div>
+                <div class="field">
+                    <label>题目难度</label>
+                    <select class="ui fluid dropdown" disabled>
+                        <option value="1">一星难度</option>
+                        <option value="2">两星难度</option>
+                        <option value="3">三星难度</option>
+                        <option value="4">四星难度</option>
+                        <option value="5">五星难度</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="positive ui button" value="查询" />
+        </form>
+    </div>
+    
+    
+    
+    
+    <table class="ui table">
+        <thead><tr>
+            <th class="ten wide">题目</th>
+            <th class="second wide">难度</th>
+            <th class="second wide">题型</th>
+            <th class="second wide">操作</th>
+        </tr></thead>
+        <tbody>
+        <tr th:each="item,itemStats : ${questions}">
+            <td><span th:text="${item.title}">一个作业的完成要经过若干加工步骤,每个步骤称为( )</span></td>
+            <td>
+                <div class="ui star rating" data-rating="1">1星</div>
+            </td>
+            <td>
+                <span>单选题</span>
+            </td>
+            <td><a th:href="@{'/timuxiangqing/'+${item.qid}}" class="tiny blue ui button">详情</a></td>
+        </tr>
+        
+        <!--<tr>-->
+            <!--<td><span>一个作业的完成要经过若干加工步骤,每个步骤称为( )</span></td>-->
+            <!--<td>-->
+                <!--<div class="ui star rating" data-rating="3"></div>-->
+            <!--</td>-->
+            <!--<td><span>单选题</span></td>-->
+            <!--<td><a class="tiny blue ui button" href="timuxiangqing.html">详情</a></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><span>某保险公司多年的资料表明，在索赔户中，被盗索赔户占20%，以 表示在随机抽查100个索赔户中因被盗而向保险公司索赔的户数，求 . x 0 0.5 1 1.5 2 2.5 3 Ф (x) 0.500 0.691 0.841 0.933 0.977 0.994 0.999</span></td>-->
+            <!--<td>-->
+                <!--<div class="ui star rating" data-rating="3"></div>-->
+            <!--</td>-->
+            <!--<td><span>问答题</span></td>-->
+            <!--<td><a class="tiny blue ui button" href="timuxiangqing.html">详情</a></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><span>写一个算法，逐层遍历一棵二叉树（从上到下，从左到右）</span></td>-->
+            <!--<td>-->
+                <!--<div class="ui star rating" data-rating="3"></div>-->
+            <!--</td>-->
+            <!--<td><span>编程题</span></td>-->
+            <!--<td><a class="tiny blue ui button">详情</a></td>-->
+        <!--</tr>-->
+       <!-- <tr>
+            <td colspan="9" style="padding: 0px;"><div class="ui icon message" style="margin: 0px; box-shadow: none;"><i class="info circle icon"></i><div class="content"><p>当前还没有题目呢！_(:зゝ∠)_</p></div></div></td>
+        </tr>-->
+        
+        </tbody>
+    </table>
+</div>
+<!-- 分页 -->
+<div class="ui subPage container" style="text-align: center;">
+    <div class="ui pagination menu" id="subPageMenu">
+        
+        <a class="item">
+            首页
+        </a>
+        <a class="item">
+            上一页
+        </a>
+        <a class="active item">
+            1
+        </a>
+        <a class="item">
+            2
+        </a>
+      
+       
+        <a class="item">
+            下一页
+        </a>
+        <a class="item">
+            末页
+        </a>
+        
+    </div>
+</div>
+            
+		<div class="footer-outer">
+      <div class="footer"> 
+        <ul class="footer-propaganda">
+          <li class="footer-propagadan-frist"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-second"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-thrid"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-fourth"><a href="javascript:void();"></a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="javascript:void();">企业合作</a></li>
+          <li><a href="javascript:void();">人才招聘</a></li>
+          <li><a href="javascript:void();">联系我们</a></li>
+          <li><a href="javascript:void();">讲师招募</a></li>
+          <li><a href="javascript:void();">常见问题</a></li>
+          <li><a href="javascript:void();">意见反馈</a></li>
+          <li><a href="javascript:void();">慕课大学</a></li>
+          <li><a href="javascript:void();">友情链接</a></li>
+        </ul>
+        <div class="footer-divider"></div>
+        <!--<div class="footer-copyright"><span>© 2017 127.0.0.1  京ICP备 130565564562号-2</span></div>-->
+      </div>
+   </div>
+
+<!--<script language="javascript" type="text/javascript">
+    var avatarUrl = 'http://scb1a9q0-sb.qiqiuyun.net/files/user/2017/10-30/1347197f4226238699.png',
+            avatarPic = avatarUrl.replace('http:', 'http://' + window.location.host)
+    zhuge.identify('60992', {
+        name: 'xuebusi',
+        avatar: avatarPic
+    });
+    zhuge.track('页面打开', {
+        '页面名称': document.title
+    });
+    function zhugeTrack(evName, obj) {
+        zhuge.track(evName, obj)
+    }
+</script>-->
+
+    <script src="../../public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../public/script/index.js"></script>
+    <script src="../../public/script/load.js"></script>
+       <script type="text/javascript">
+        /*function baidusearch(id) {
+          var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + encodeURIComponent(document.getElementById(id).value);
+          window.open(url,"_blank");
+        }*/
+        function coursesearch(id) {
+            var url = "/search" + "?q=" + encodeURIComponent(document.getElementById(id).value);
+            window.open(url, "_self");
+        }
+
+        function baidusearch() {
+            var sWords = window.location.href.split('=')[1] || '';
+            var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + sWords;
+            window.open(url, "_blank");
+        }
+    </script>
+    <!--<script language="javascript" type="text/javascript">
+    var avatarUrl = 'http://scb1a9q0-sb.qiqiuyun.net/files/user/2017/10-30/1347197f4226238699.png',
+            avatarPic = avatarUrl.replace('http:', 'http://' + window.location.host)
+    zhuge.identify('60992', {
+        name: 'xuebusi',
+        avatar: avatarPic
+    });
+    zhuge.track('页面打开', {
+        '页面名称': document.title
+    });
+    function zhugeTrack(evName, obj) {
+        zhuge.track(evName, obj)
+    }
+</script>-->
+	</body>
+</html>
+

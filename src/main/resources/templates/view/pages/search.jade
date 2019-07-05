@@ -1,0 +1,43 @@
+doctype
+html
+	head
+		title #{title}
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width')
+		link(href="./style/search.css" rel="stylesheet" type="text/css")
+		link(href="./style/public.css" rel="stylesheet" type="text/css")
+		link(href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css")
+		link(href="./style/loadOrRegister.css" rel="stylesheet" type="text/css")
+	body(style="background:#F3F5F7;")
+		include ../includes/header.jade
+		div.outermost
+			div.outer
+				div.search-input
+					form(action="" method="post").search-input-form
+						input(type="text" placeholder="请输入课程名称搜索")
+						input(type="submit" value="搜索")
+					ul.search-input-other 
+						span 热门搜索：
+						li AngularJS
+						li mysql
+						li java
+						li android
+						li C
+						li php
+						li javascript
+						li aja
+		div.outer2
+			div.search-list
+				div.search-sin
+					div.search-img
+						img(src='./images/pc/index/class.jpg')
+					div.serch-con
+						span.class-name [实战]React Native快速开发 厕所在哪App LBS定位 框架封装
+						span.class-person 526人学习
+						span.class-subtitle 课程简介： 真实iOS APP项目讲解，多终端技术轻松实现一款APP从0到1的突破
+		include ../includes/loadOrRegister.jade
+		include ../includes/footer.jade
+	script(src='./bower_components/jquery/dist/jquery.min.js')
+	script(src="./script/load.js")
+	script(src='./script/search.js')
+	

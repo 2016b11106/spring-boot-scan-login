@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="../../public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="../../public/style/index.css" rel="stylesheet" type="text/css">
+    <link href="../../public/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../../public/style/loadOrRegister.css" rel="stylesheet" type="text/css">
+  </head>
+  <body style="background:#F3F5F7;">
+    <div class="index-header"> 
+      <div class="header-left">
+        <div class="header-left-logo">Xing educate</div>
+        <ul class="header-left-list">
+          <li> <a href="/index">首页</a></li>
+          <li> <a href="/alltimu">实战</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <div class="header-right-search">
+          <input type="text" name="" id="keyword" onkeyup="getMoreContents()"  onfocus="getMoreContents()" >
+          <input type="submit" name="" value=" ">
+
+          <div id="popDiv" style="position: absolute">
+            <table id="content_table" bgcolor="#FFFAFA" border="0"
+                   cellspacing="0" cellpadding="0">
+              <tbody id="content_table_body">
+              <!-- 动态数据在这里显示 -->
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="header-right-message glyphicon glyphicon-envelope hide"></div>
+        <div class="header-right-usr hide"><img src="../../public/images/pc/index/usr2.jpg"></div>
+        <div class="header-right-loadbtn"><div th:include="oauth"></div></div>
+        <!--<div class="header-right-registerbtn">注册</div>-->
+      </div>
+    </div>
+    <div class="content-outer">
+      <div class="content">
+        <div class="banner">
+          <ul class="banner-menu">
+            <li>前端开发</li>
+            <li>后端开发</li>
+            <li>移动开发</li>
+            <li>数据库</li>
+            <li>云计算&大数据</li>
+            <li>运维&测试</li>
+            <li>UI设计</li>
+          </ul>
+          <div class="banner-imgs-outer">
+            <div class="banner-imgs-img">
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner5.jpg" alt=""></a>
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner1.jpg" alt=""></a>
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner2.jpg" alt=""></a>
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner3.jpg" alt=""></a>
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner4.jpg" alt=""></a>
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner5.jpg" alt=""></a>
+              <a href="javascript:void(0);"><img src="../../public/images/pc/index/banner1.jpg" alt=""></a></div>
+          </div>
+          <ul class="banner-btns">
+            <li id="bt1"></li>
+            <li id="bt2"></li>
+            <li id="bt3"></li>
+            <li id="bt4"></li>
+            <li id="bt5"></li>
+          </ul><span class="banner-toleft"></span><span class="banner-toright"></span>
+          <div class="banner-learnPath">
+            <ul class="banner-learnPath-li">
+              <li><a href="javascript:void(0);"><img src="../../public/images/pc/index/path_1.png"></a></li>
+              <li><a href="javascript:void(0);"><img src="../../public/images/pc/index/path_2.png"></a></li>
+              <li><a href="javascript:void(0);"><img src="../../public/images/pc/index/path_3.png"></a></li>
+              <li><a href="javascript:void(0);"><img src="../../public/images/pc/index/path_4.png"></a></li>
+              <li><a href="javascript:void(0);"><img src="../../public/images/pc/index/path_5.png"></a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="firstFloor" class="floor">
+          <div class="foolTitle">
+            <h3>免费好课</h3><span class="more">更多</span>
+          </div>
+          <div class="floor-classList">
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA基础</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/1">
+                  <h4 class="floor-classSin-subTitle">Java入门基础及环境搭建</h4>
+                  <p class="floor-classSin-content">本章主要讲述 Java 的一些基础知识及其开发环境的搭建和使用。 </p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1qn6M1Nj5qYRF6vR7aviPwQ">小帆</a>    <button class="btn btn-success" data-vid="1">加入学习</button></div>
+                  </a>
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover002_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA基础</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/1">
+                  <h4 class="floor-classSin-subTitle">Java流程控制语句</h4>
+                  <p class="floor-classSin-content">从结构化程序设计角度出发，程序有 3 种结构：顺序结构、选择结构和循环结构。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1qn6M1Nj5qYRF6vR7aviPwQ">小帆</a>   <button class="btn btn-success" data-vid="1">加入学习</button></div>
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover008_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA基础</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/1">
+                  <h4 class="floor-classSin-subTitle">Java类和对象</h4>
+                  <p class="floor-classSin-content">面向对象最关键的两个词汇是类与对象，可以将类看作对象的抽象。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1sB7ULLc3vfDe4AkIf5UWik">_ _</a>   <button class="btn btn-success" data-vid="1">加入学习</button></div>
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover012_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA基础</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/1">
+                  <h4 class="floor-classSin-subTitle">Java继承和多态</h4>
+                  <p class="floor-classSin-content">学好继承和多态是面向对象开发语言中非常重要的一个环节。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1sB7ULLc3vfDe4AkIf5UWik">_ _</a>   <button class="btn btn-success" data-vid="1">加入学习</button></div>
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover016_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA基础</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/1">
+                  <h4 class="floor-classSin-subTitle">Java异常处理</h4>
+                  <p class="floor-classSin-content">Java 将异常封装到一个类中，出现错误时就会拋出异常。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1sB7ULLc3vfDe4AkIf5UWik">_ _</a>   <button class="btn btn-success" data-vid="1">加入学习</button></div>
+
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover017_s.jpg"></div>
+            </div>
+          </div>
+        </div>
+        <div id="secondFloor" class="floor">
+          <div class="foolTitle">
+            <h3>免费好课</h3><span class="more">更多</span>
+          </div>
+          <div class="floor-classList">
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA进阶</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/2">
+                  <h4 class="floor-classSin-subTitle">JS基础</h4>
+                  <p class="floor-classSin-content">JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1g9esP2z8yr2i2NzfrXcByc">锁钥</a>   <button class="btn btn-success" data-vid="2">加入学习</button></div>
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover019_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA进阶</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/2">
+                  <h4 class="floor-classSin-subTitle">Bootstrap教学</h4>
+                  <p class="floor-classSin-content">Bootstrap 是最受欢迎的 HTML、CSS 和 JS 框架，用于开发响应式布局的WEB项目。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1g9esP2z8yr2i2NzfrXcByc">锁钥</a>   <button class="btn btn-success" data-vid="2">加入学习</button></div>
+
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover020_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA进阶</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/2">
+                  <h4 class="floor-classSin-subTitle">Spring</h4>
+                  <p class="floor-classSin-content">Spring是一个基于IOC和AOP的结构J2EE系统的框架,IOC,反转控制,是Spring的基础。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1mP26glT5asiAHWAtHdukBA">23：00左右睡觉</a>   <button class="btn btn-success" data-vid="2">加入学习</button></div>
+
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover021_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA进阶</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/2">
+                  <h4 class="floor-classSin-subTitle">SpringMVC</h4>
+                  <p class="floor-classSin-content">SpringMVC是一种web层mvc框架,用于替代servlet。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1mP26glT5asiAHWAtHdukBA">23：00左右睡觉</a>   <button class="btn btn-success" data-vid="2">加入学习</button></div>
+
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover025_s.jpg"></div>
+            </div>
+            <div class="floor-classSin"> <span class="floor-content">
+                <h4 class="floor-classSin-title floor-classSin-title-bgcol1">JAVA进阶</h4>
+                <div class="floor-classSin-main">
+                  <a href="/dd/2">
+                  <h4 class="floor-classSin-subTitle">MyBatis</h4>
+                  <p class="floor-classSin-content">MyBatis 是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。</p></a>
+                  <div class="floor-classSin-detail">发布者·<a href="/test?openid=odVco1mP26glT5asiAHWAtHdukBA">23：00左右睡觉</a>   <button class="btn btn-success" data-vid="2">加入学习</button></div>
+
+                </div></span>
+              <div class="floor-bkimg"><img src="../../public/images/pc/index/cover026_s.jpg"></div>
+            </div>
+          </div>
+        </div>
+        <div id="fourthFloor" class="floor">
+          <div class="foolTitle">
+            <h3>VIP视频解析</h3>
+          </div>
+          <div class="floor-classList">
+            <div style="width: 100%;">
+              <div th:include="vipsearch"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-outer">
+      <div class="footer"> 
+        <ul class="footer-propaganda">
+          <li class="footer-propagadan-frist"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-second"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-thrid"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-fourth"><a href="javascript:void();"></a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="javascript:void();">企业合作</a></li>
+          <li><a href="javascript:void();">人才招聘</a></li>
+          <li><a href="javascript:void();">联系我们</a></li>
+          <li><a href="javascript:void();">讲师招募</a></li>
+          <li><a href="javascript:void();">常见问题</a></li>
+          <li><a href="javascript:void();">意见反馈</a></li>
+          <li><a href="javascript:void();">慕课大学</a></li>
+          <li><a href="javascript:void();">友情链接</a></li>
+        </ul>
+        <div class="footer-divider"></div>
+        <div class="footer-copyright"><span>© 2017 127.0.0.1  京ICP备 130565564562号-2</span></div>
+      </div>
+    </div>
+    <div style="color: black;" class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" style="position: relative">
+          <img src="/img/wait.gif" style="display: none; position: absolute;top: 65px;left: 122px;"/>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title" id="gridSystemModalLabel">上传视频文件</h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="control-label">视频名:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="form-group">
+                <label>选择列表</label>
+                <select class="form-control" id="lb">
+                  <option value="后端">后端</option>
+                  <option value="前端">前端</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputFile">文件</label>
+                <input type="file"  id="exampleInputFile">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary">上传</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../public/script/index.js"></script>
+    <script src="../../public/script/load.js"></script>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleleaf.org">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="/public/style/test.css" rel="stylesheet" type="text/css">
+    <link href="/public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="/public/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/public/style/loadOrRegister.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+
+        var stompClient = null;
+
+        var app = angular.module('app', []);
+        app.controller('MainController', function($rootScope, $scope, $http) {
+
+            $scope.data = {
+                //连接状态
+                connected : false,
+                //消息
+                oauth:'',
+                message : '',
+                rows : [],
+
+            };
+
+            //连接
+            $scope.connect = function() {
+                var socket = new SockJS('/my-websocket');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function(frame) {
+                    // 注册发送消息
+                    stompClient.subscribe('/topic/send', function(msg) {
+                        $scope.data.rows.push(JSON.parse(msg.body));
+                        $scope.data.connected = true;
+                        $scope.$apply();
+                    });
+                    // 注册推送时间回调
+                    stompClient.subscribe('/topic/callback', function(r) {
+                        $scope.data.time = '当前服务器时间：' + r.body;
+                        $scope.data.connected = true;
+                        $scope.$apply();
+                    });
+
+
+
+                    $scope.data.connected = true;
+                    $scope.$apply();
+                });
+            };
+
+            $scope.disconnect = function() {
+                if (stompClient != null) {
+                    stompClient.disconnect();
+                    window.location.href="/oauth/exit";
+                }
+                $scope.data.connected = false;
+            }
+            var uname=[[${uname}]];
+            var uimg=[[${uimg}]];
+            $scope.send = function() {
+                stompClient.send("/app/send", {}, JSON.stringify({
+                    'message' : uname+":"+$scope.data.message,
+                    'oauth':$scope.data.oauth,
+                    'img2':uimg
+                }));
+            }
+        });
+        /*]]>*/
+    </script>
+  </head>
+  <body style="background:#F3F5F7;" ng-app="app" ng-controller="MainController" data-ng-init="connect()" >
+
+    <div class="index-header">
+      <div class="header-left">
+        <div class="header-left-logo">Xing educate</div>
+        <ul class="header-left-list">
+          <li> <a href="/index">首页</a></li>
+          <li> <a href="/alltimu">实战</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <div class="header-right-search">
+          <input type="text" name="">
+          <input type="submit" name="" value=" ">
+        </div>
+        <div class="header-right-message glyphicon glyphicon-envelope hide"></div>
+        <div class="header-right-usr hide"><img src="/public/images/pc/index/usr2.jpg"></div>
+
+        <div class="header-right-registerbtn" ng-click="disconnect()" ng-disabled="!data.connected">
+                                                      断开</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="video-info">
+        <h3 class="video-info-title">信管2016年开放实验启动课程（开放实验起源及意义介绍）</h3>
+        <div class="video-info-detail"><span class="video-info-detailTitle">分类:</span><span class="video-info-detailCon">课外拓展>开放实验</span><span class="video-info-detailTitle">时间:</span><span class="video-info-detailCon">2016年1月08日</span></div>
+        <div class="video-info-hot"><span alt="play number" class="video-info-hotTitle glyphicon glyphicon-play-circle"></span><span class="video-info-hotCon">12,236</span><span class="video-info-hotTitle glyphicon glyphicon-heart"></span><span class="video-info-hotCon">536</span><span class="video-info-hotTitle glyphicon glyphicon-list-alt"></span><span class="video-info-hotCon">52</span></div>
+      </div>
+      <div class="video-banner"><a href="javascript:void(0);"><img src="/public/images/pc/index/detailBanner4.jpg" alt=""></a><a href="javascript:void(0);"><img src="public/images/pc/index/detailBanner5.jpg" alt=""></a></div>
+    </div>
+    <div class="video-wrap">
+      <div class="video-main"><span class="video-directory-title"><span class="video-directory-titleName">目录：</span><span class="glyphicon glyphicon-eye-close video-directory-btn"></span></span>
+        <ul class="video-directory">
+          <li><a href="javascript:void(0);">1.信管2016年开放实验启动课程</a></li>
+          <li><a href="javascript:void(0);">2.开放实验第二课</a></li>
+          <li class="video-directory-nowItem"><a href="javascript:void(0);">3.开放实验第三课</a></li>
+        </ul>
+
+          <div id="danmup" style="">
+
+
+          </div>
+          <div class="video-conversition">
+            <div class="video-conver-title">聊天室</div>
+            <div class="video-conver-main">
+
+
+              <br />
+              <br />
+              <div ng-show="data.connected">
+
+                <input type="text" ng-model="data.oauth"  placeholder="请输入内容..." style="display: none" >
+
+                <table>
+
+                  <tbody>
+                  <tr ng-repeat="row in data.rows">
+                    <td>
+                      <div class="video-converSin-usrheader"><img src="{{row.img}}"></div>
+                      <div class="video-converSin-text">{{row.message}}</div>
+                      <br>
+                    </td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="video-conver-send" ng-show="data.connected">
+            <input type="text" name="" ng-model="data.message" placeholder="发送消息，分享心得，和同学一起思考" class="video-conver-sendTxt"><span class="video-conver-sendBtn" ng-click="send()">发送</span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="video-recommand" >
+      <div class="video-recommand-banner"><a href="javascript:void(0);"><img src="../../public/images/pc/index/detailBannerText2.jpg"></a></div>
+      <div id="firstFloor" class="floor">
+        <div class="foolTitle">
+          <h3>课程推荐</h3><span class="more">更多</span>
+        </div>
+        <div class="floor-classList">
+          <div class="floor-classSin"> <a class="floor-content">
+              <h4 class="floor-classSin-title floor-classSin-title-bgcol1">Node.js</h4>
+              <div class="floor-classSin-main">
+                <h4 class="floor-classSin-subTitle">去哪儿前端沙龙分享第三期</h4>
+                <p class="floor-classSin-content">程为去哪儿网前端交互沙龙第三期，精彩分享不容错过噢</p>
+                <div class="floor-classSin-detail">高级· 22749人在学</div>
+              </div></a>
+            <div class="floor-bkimg"><img src="../../public/images/pc/index/cover002_s.jpg"></div>
+          </div>
+          <div class="floor-classSin"> <a class="floor-content">
+              <h4 class="floor-classSin-title floor-classSin-title-bgcol1">MongoDB</h4>
+              <div class="floor-classSin-main">
+                <h4 class="floor-classSin-subTitle">MongoDB复制集—复制集安全</h4>
+                <p class="floor-classSin-content">数据库安全是重中之重，认真对待才能守住数据库的大门</p>
+                <div class="floor-classSin-detail">高级· 1701人在学</div>
+              </div></a>
+            <div class="floor-bkimg"><img src="../../public/images/pc/index/cover008_s.jpg"></div>
+          </div>
+          <div class="floor-classSin"> <a class="floor-content">
+              <h4 class="floor-classSin-title floor-classSin-title-bgcol1">MongoDB</h4>
+              <div class="floor-classSin-main">
+                <h4 class="floor-classSin-subTitle">MongoDB复制集—复制集监控</h4>
+                <p class="floor-classSin-content">关于数据库监控，自有人代劳，做到心中有数，处乱不惊</p>
+                <div class="floor-classSin-detail">高级· 4135人在学 </div>
+              </div></a>
+            <div class="floor-bkimg"><img src="/public/images/pc/index/cover012_s.jpg"></div>
+          </div>
+          <div class="floor-classSin"> <a class="floor-content">
+              <h4 class="floor-classSin-title floor-classSin-title-bgcol1">测试</h4>
+              <div class="floor-classSin-main">
+                <h4 class="floor-classSin-subTitle">WeTest移动测试系列沙龙-手游安全测试</h4>
+                <p class="floor-classSin-content">游戏安全测试知识干货。</p>
+                <div class="floor-classSin-detail">中级· 364人在学</div>
+              </div></a>
+            <div class="floor-bkimg"><img src="../../public/images/pc/index/cover016_s.jpg"></div>
+          </div>
+          <div class="floor-classSin"> <a class="floor-content">
+              <h4 class="floor-classSin-title floor-classSin-title-bgcol1">MySQLOracle</h4>
+              <div class="floor-classSin-main">
+                <h4 class="floor-classSin-subTitle">2015 Oracle技术嘉年华</h4>
+                <p class="floor-classSin-content">2015 Oracle技术嘉年华尽在慕课网，让大家尽情享用技术盛宴</p>
+                <div class="floor-classSin-detail">高级· 22749人在学</div>
+              </div></a>
+            <div class="floor-bkimg"><img src="/public/images/pc/index/cover017_s.jpg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="load-cover">
+      <div class="load-form">
+        <div class="load-close"><span class="load-close-btn glyphicon glyphicon-remove"></span></div>
+        <div class="load-choose"><span id="load-choose-load" class="load-choose-form load-choose-select">账户登录</span><span class="load-choose-scan">立即注册</span></div>
+        <div class="load-wrap">
+          <div class="load-wrap-inner">
+            <div class="load-wrap-form"><span class="load-form-alert">公共场所不建议自动登录，以防账号丢失<span class="glyphicon glyphicon-exclamation-sign"></span></span>
+              <form method="post" class="load-form-content">
+                <div class="load-formCon-line"><span class="glyphicon glyphicon-user load-formCon-icon"></span>
+                  <input type="text" placeholder="邮箱/用户名/手机" class="load-formCon-input">
+                </div>
+                <div class="load-formCon-line"><span class="glyphicon glyphicon-lock load-formCon-icon"></span>
+                  <input type="password" placeholder="密码" class="load-formCon-input">
+                </div>
+                <div class="load-form-forget">
+                  <input type="checkbox"><span>自动登录</span><a href="javascript:;">忘记密码</a>
+                </div>
+                <input type="submit" value="登 录" class="load-formCon-submit">
+              </form>
+            </div>
+            <div class="load-register">
+              <form method="post" class="load-form-content">
+                <div class="load-formCon-line"><span class="glyphicon glyphicon-user load-formCon-icon"></span>
+                  <input type="text" placeholder="请输入注册邮箱/手机号" class="load-formCon-input">
+                </div>
+                <div class="load-formCon-line"><span class="glyphicon glyphicon-lock load-formCon-icon"></span>
+                  <input type="password" placeholder="请输入密码" class="load-formCon-input">
+                </div>
+                <div class="load-formCon-line"><span class="glyphicon glyphicon-lock load-formCon-icon"></span>
+                  <input type="password" placeholder="请再次输入密码以确认" class="load-formCon-input">
+                </div>
+                <input type="submit" value="注 册" class="load-formCon-submit">
+              </form>
+            </div>
+          </div>
+        </div>
+        <ul class="load-other">
+          <li><span class="load-other-qq"></span><a href="javascript:;">QQ</a></li>
+          <li><span class="load-other-weixin"></span><a href="javascript:;">微信</a></li>
+          <li><span class="load-other-zhi"></span><a href="javascript:;">支付宝</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-outer">
+      <div class="footer"> 
+        <ul class="footer-propaganda">
+          <li class="footer-propagadan-frist"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-second"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-thrid"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-fourth"><a href="javascript:void();"></a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="">企业合作</a></li>
+          <li><a href="">人才招聘</a></li>
+          <li><a href="">联系我们</a></li>
+          <li><a href="">讲师招募</a></li>
+          <li><a href="">常见问题</a></li>
+          <li><a href="">意见反馈</a></li>
+          <li><a href="">慕课大学</a></li>
+          <li><a href="">友情链接</a></li>
+        </ul>
+        <div class="footer-divider"></div>
+        <div class="footer-copyright"><span>© 2017 127.0.0.1  京ICP备 130565564562号-2</span></div>
+      </div>
+    </div>
+  </body>
+  <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/public/script/test.js"></script>
+  <script src="/public/script/detailpage.js"></script>
+  <script src="/public/script/load.js"></script>
+  <script src="/src/js/jquery-2.1.4.min.js"></script>
+<script src="/src/js/jquery.shCircleLoader.js"></script>
+<script src="/src/js/sco.tooltip.js"></script>
+<script src="/src/js/colpick.js"></script>
+<script src="/src/js/jquery.danmu.js"></script>
+<script src="/src/js/main.js"></script>
+<link href="/src/css/scojs.css" rel="stylesheet">
+  <link href="/src/css/colpick.css" rel="stylesheet">
+  <link href="/src/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="/src/css/main.css">
+  <script th:inline="javascript">
+      var vid=[[${videoid}]];
+      var vaddress= [[${vaddress}]]
+      var src="/demo/"+vaddress;
+  $("#danmup").DanmuPlayer({
+      src: src,
+      height: "455px", //区域的高度
+      width: "845px" //区域的宽度
+      ,urlToGetDanmu:"/Getdanmu?video="+vid
+      ,urlToPostDanmu:"/Postdanmu?video="+vid
+      });
+
+
+</script>
+
+</html>

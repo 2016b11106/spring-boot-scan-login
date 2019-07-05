@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>上传文件</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">上传</button>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".modal-footer .btn-primary").click(function(){
+        var vname = $("#recipient-name").val();
+        if(vname == ""){
+            alert("视频名不能为空");
+            return;
+        }
+        var file = document.getElementById("exampleInputFile").files[0];
+        if(!file){
+            alert("视频文件不能为空");
+            return;
+        }
+        var filename = file.name;
+        var suffix = filename.substr(filename.lastIndexOf('.'));
+        if(suffix != '.mp4'){
+            alert("暂时只支持MP4格式的视频");
+            return;
+        }
+        var formData = new FormData();
+        formData.append("vname", vname);
+        formData.append("lb", $("#lb").val());
+        formData.append("file", file);
+        $(".modal-content img").css("display","block");
+        $.ajax({
+            url:"/video/uploading",
+            type:"post",
+            data:formData,
+            contentType:false,
+            processData:false,
+            mimeType:"multipart/form-data",
+            success:function (data) {
+                window.location.href="/index";
+            }
+        })
+    })
+
+
+})
+
+</script>
+</body>
+</html>

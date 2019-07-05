@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		    <link href="/yf-cssjsimg/public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/index.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/yf-cssjsimg/public/style/loadOrRegister.css" rel="stylesheet" type="text/css">
+      <link href="/yf-cssjsimg/public/style/lecturer.css" rel="stylesheet" type="text/css">
+       <script src="/yf-cssjsimg/public/script/lecturer-something.js"></script>
+        <link href="/yf-cssjsimg/public/style/main-red-light.css" rel="stylesheet" type="text/css">
+			<style>
+    .nav.nav-tabs > li > a {
+        padding: 5px 30px 15px;
+    }
+
+    @media (max-width: 1199px) {
+        .nav.nav-tabs > li > a {
+            padding: 5px 10px 10px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+	</head>
+	<body class="userpage bg-blank" onbeforeunload="isgz()" style="visibility: visible;">
+    <div class="index-header">
+        <div class="header-left">
+            <div class="header-left-logo">Xing educate</div>
+            <ul class="header-left-list">
+                <li> <a href="/index">首页</a></li>
+                <li> <a href="/alltimu">实战</a></li>
+            </ul>
+        </div>
+        <div class="header-right">
+            <div class="header-right-search">
+                <input type="text" name="" id="keyword" onkeyup="getMoreContents()"  onfocus="getMoreContents()" >
+                <input type="submit" name="" value=" ">
+
+                <div id="popDiv" style="position: absolute">
+                    <table id="content_table" bgcolor="#FFFAFA" border="0"
+                           cellspacing="0" cellpadding="0">
+                        <tbody id="content_table_body">
+                        <!-- 动态数据在这里显示 -->
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="header-right-message glyphicon glyphicon-envelope hide"></div>
+            <div class="header-right-usr hide"><img src="../../public/images/pc/index/usr2.jpg"></div>
+            <div class="header-right-loadbtn"><div th:include="oauth"></div></div>
+            <!--<div class="header-right-registerbtn">注册</div>-->
+        </div>
+    </div>
+    
+
+<div id="nTalk_post_hiddenElement" style="left: -10px; top: -10px; visibility: hidden; display: none; width: 1px; height: 1px;"></div>
+
+   <div class="es-wrap">
+
+    <div class="user-center-header has-blurr"
+         data-href="" data-sharpness="40"
+         style="height: 230px; overflow: hidden; position: relative;">
+        <div class="blurr-bg"
+             style="background: url(&quot;http://scb1a9q0-sb.qiqiuyun.net/files/2015/05-08/largeavatar8b2f154d.jpg&quot;) center center / 150%; left: 0px; right: 0px; top: -50px; bottom: -50px; width: 1349px; filter: blur(60px); transform: translateZ(0px); position: absolute;"></div>
+        <div class="container clearfix" style="position: absolute; left: 0px; right: 0px; z-index: 1;">
+            
+            <div class="user-avatar">
+                <div class="avatar-wrap"><!--src="${(user.titleImgUrl)!"--> 
+                    <img class="avatar-lg" th:src="@{${gr.headimgurl}}"width="120px" height="120px"><!--${(user.titleImgUrl)!}--><!--../../public/images/pc/index/pho1.jpg-->
+                    <span class="icon-user-status icon-md"><i class="es-icon es-icon-school"></i></span>
+                </div>
+                <div class="name">
+                [[${gr.nickname}]]
+                </div>
+                <div class="mates">
+                    <span class="mrm">[[${fanscount}]]</span>粉丝<span class="mlm mrm">｜</span><span class="mrm">[[${gzcount}]]</span>关注
+                </div>
+                <div class="actions">
+                    <a class="btn btn-primary follow-btn mrl" style="width: 100px" href="javascript:gz('odVco1sB7ULLc3vfDe4AkIf5UWik','odVco1g9esP2z8yr2i2NzfrXcByc');" id="gzbtn1" >关注</a>
+                    <a class="btn btn-default unfollow-btn mrl" href="javascript:qxgz('odVco1sB7ULLc3vfDe4AkIf5UWik','odVco1g9esP2z8yr2i2NzfrXcByc');" id="gzbtn2"
+                       style="display:none;width: 100px">取消关注</a>
+
+                </div>
+            </div>
+            
+            <div class="user-about hidden-sm hidden-xs">
+                <div class="user-about-content">
+                这家伙很懒什么也没写
+                </div>
+            </div>
+        </div>
+        <div class="mask" style="position: absolute; left: 0px; right: 0px; z-index: 1;"></div>
+    </div>
+
+
+</div>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<ul class="nav nav-tabs clearfix">
+    <li class="active" id="grzp"><a href="javascript:bb()">个人作品</a></li><!--/user/${(user.id)!}/about-->
+    <li id="sckc3"><a href="javascript:sckc2()">收藏课程</a></li>
+    <li id="fans3"><a href="javascript:aa()">关注&nbsp;/&nbsp;粉丝</a></li><!--"/user/${(user.id)!}/following"-->
+    <li class="highlight" style="left: 248px; width: 124px;"></li>
+</ul>
+
+   
+    </div>
+     <div id="content-container" class="container">
+        <!--<#include "user-tabs.ftl">-->
+        <div class="course-list" id="course2">
+            <div class="row">
+             <!--   <#list courseList as course>-->
+                <tr th:each="video : ${videos}">
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="course-item">
+                            <div class="course-img">
+                                <a th:href="@{'/dd/'+${video.vid}}" target="_blank">
+                                    <span class="tags">
+                                        <span class="tag-live"></span>
+                                    </span><!--${(course.courseImgUrl)!}"-->
+                                    <img class="img-responsive" th:src="@{${video.vimg}}"   alt="${(course.courseTitle)!}" style="width: 300px;height: 220px;" >
+                                </a>
+                            </div>
+                            <div class="course-info">
+                                <div class="title">
+                                    <a class="link-dark" th:href="@{'/dd/'+${video.vid}}" target="_blank">
+                                        <td th:text="${video.vname}">yes</td>
+                                    </a>
+                                </div>
+                                <div class="metas clearfix">
+                                    <span class="num">
+                                        <i class="glyphicon glyphicon-user"></i>10
+                                    </span>
+                                    <span class="comment">
+                                        <i class="glyphicon glyphicon-comment"></i>0
+                                    </span>
+                                    <span class="course-price-widget">
+                                        <span class="price" style="font-size: 24px">免费</span><!--${(course.coursePrice)!}-->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+               <!-- </#list>-->
+
+
+
+                </div>
+            </div>
+         <div class="course-list" id="sckc" style="display: none">
+             <div class="row">
+                 <!--   <#list courseList as course>-->
+                 <tr th:each="video : ${studyvideos}">
+                     <div class="col-lg-3 col-md-4 col-xs-6">
+                         <div class="course-item">
+                             <div class="course-img">
+                                 <a th:href="@{'/dd/'+${video.vid}}" target="_blank">
+                                    <span class="tags">
+                                        <span class="tag-live"></span>
+                                    </span><!--${(course.courseImgUrl)!}"-->
+                                     <img class="img-responsive" th:src="@{${video.vimg}}"   alt="${(course.courseTitle)!}" style="width: 300px;height: 220px;" >
+                                 </a>
+                             </div>
+                             <div class="course-info">
+                                 <div class="title">
+                                     <a class="link-dark" th:href="@{'/dd/'+${video.vid}}" target="_blank">
+                                         <td th:text="${video.vname}">yes</td>
+                                     </a>
+                                 </div>
+                                 <div class="metas clearfix">
+                                    <span class="num">
+                                        <i class="glyphicon glyphicon-user"></i>10
+                                    </span>
+                                     <span class="comment">
+                                        <i class="glyphicon glyphicon-comment"></i>0
+                                    </span>
+                                     <span class="course-price-widget">
+                                        <span class="price" style="font-size: 24px">免费</span><!--${(course.coursePrice)!}-->
+                                    </span>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </tr>
+                 <!-- </#list>-->
+
+
+
+             </div>
+         </div>
+         <ul class="nav nav-pills mbl" id="gztitle" style="display: none">
+             <li class="active" id="gztitle1" ><a href="javascript:dd()">粉丝</a></li>
+             <li id="gztitle2"><a href="javascript:cc()">关注</a></li>
+         </ul>
+         <div class="row" id="fans2" style="display: none;">
+             <!-- <#if userList??>
+                  <#list userList as user>-->
+             <div id="fans4">
+             <tr th:each="fan : ${fans}"  >
+             <div class="col-md-3" >
+                 <div class="teacher-item">
+                     <div class="teacher-top">
+                         <a class="teacher-img" th:href="@{'/test?openid='+${fan.openid2}}">
+                             <img class="avatar-lg" th:src="@{${fan.uimg2}}" width="100px" height="100px"alt=""><!--${(user.titleImgUrl)!}-->
+                         </a>
+
+                         <h3 class="title">
+                             <a class="link-dark" th:href="@{'/test?openid='+${fan.openid2}}">[[${fan.nickname2}]]</a>
+                         </h3>
+
+                         <div class="position">
+                             暂无头衔
+                         </div>
+                     </div>
+
+                     <div class="teacher-bottom">
+                         <div class="about">
+                             这家伙很懒什么也没写
+                         </div>
+                         <div class="metas">
+                             <a class="btn btn-primary follow-btn mrl"  style="width: 100px" th:href="@{'/test?openid='+${fan.openid2}}">进入主页</a>
+                               </div>
+                     </div>
+                 </div>
+             </div>
+             <!--  </#list>-->
+             </tr>
+             </div>
+             <div id="gz4">
+             <tr th:each="fan : ${gz}"  >
+                 <div class="col-md-3" >
+                     <div class="teacher-item">
+                         <div class="teacher-top">
+                             <a class="teacher-img" th:href="@{'/test?openid='+${fan.openid1}}">
+                                 <img class="avatar-lg" th:src="@{${fan.uimg1}}" width="100px" height="100px"alt=""><!--${(user.titleImgUrl)!}-->
+                             </a>
+
+                             <h3 class="title">
+                                 <a class="link-dark" th:href="@{'/test?openid='+${fan.openid1}}">[[${fan.nickname1}]]</a>
+                             </h3>
+
+                             <div class="position">
+                                 暂无头衔
+                             </div>
+                         </div>
+
+                         <div class="teacher-bottom">
+                             <div class="about">
+                                 这家伙很懒什么也没写
+                             </div>
+                             <div class="metas">
+                                 <a class="btn btn-primary follow-btn mrl"  style="width: 100px"  th:href="@{'/test?openid='+${fan.openid1}}"  >进入主页</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!--  </#list>-->
+             </tr>
+             </div>
+         </div>
+         </div>
+        </div>
+        <nav class="text-center">
+            <nav class=" text-center">
+                <ul class="pagination" style="margin: 0">
+                    <li><a href="/user/1?page=1">首页</a></li>
+                    <li><a href="/user/1?page=1">上一页</a></li>
+                    <li class="active"><a href="/user/1?page=1">1</a></li>
+
+                    <li><a href="/user/1?page=3">下一页</a></li>
+                    <li><a href="/user/1?page=3">尾页</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </div>
+   
+    
+		<div class="footer-outer">
+      <div class="footer"> 
+        <ul class="footer-propaganda">
+          <li class="footer-propagadan-frist"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-second"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-thrid"><a href="javascript:void();"></a></li>
+          <li class="footer-propagadan-fourth"><a href="javascript:void();"></a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="javascript:void();">企业合作</a></li>
+          <li><a href="javascript:void();">人才招聘</a></li>
+          <li><a href="javascript:void();">联系我们</a></li>
+          <li><a href="javascript:void();">讲师招募</a></li>
+          <li><a href="javascript:void();">常见问题</a></li>
+          <li><a href="javascript:void();">意见反馈</a></li>
+          <li><a href="javascript:void();">慕课大学</a></li>
+          <li><a href="javascript:void();">友情链接</a></li>
+        </ul>
+        <div class="footer-divider"></div>
+        <div class="footer-copyright"><span>© 2017 127.0.0.1  京ICP备 130565564562号-2</span></div>
+      </div>
+    </div>
+    <script src="../../yf-cssjsimg/public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../yf-cssjsimg/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../public/script/index.js"></script>
+    <script src="../../public/script/load.js"></script>
+       <script type="text/javascript">
+        /*function baidusearch(id) {
+          var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + encodeURIComponent(document.getElementById(id).value);
+          window.open(url,"_blank");
+        }*/
+        function coursesearch(id) {
+            var url = "/search" + "?q=" + encodeURIComponent(document.getElementById(id).value);
+            window.open(url, "_self");
+        }
+
+        function baidusearch() {
+            var sWords = window.location.href.split('=')[1] || '';
+            var url = "http://zhannei.baidu.com/cse/search?s=83960727734992248&entry=1&q=" + sWords;
+            window.open(url, "_blank");
+        }
+    </script>
+    <script language="javascript" type="text/javascript">
+    var avatarUrl = 'http://scb1a9q0-sb.qiqiuyun.net/files/user/2017/10-30/1347197f4226238699.png',
+            avatarPic = avatarUrl.replace('http:', 'http://' + window.location.host)
+    zhuge.identify('60992', {
+        name: 'xuebusi',
+        avatar: avatarPic
+    });
+    zhuge.track('页面打开', {
+        '页面名称': document.title
+    });
+    function zhugeTrack(evName, obj) {
+        zhuge.track(evName, obj)
+    }
+</script>
+	</body>
+<script type="text/javascript" th:inline="javascript">
+    function aa() {
+
+        $('#course2').css("display","none");
+        $('#fans2').css("display","block");
+        $('#gz4').css("display","none");
+        $('#fans4').css("display","block");
+        $('#gztitle').css("display","block");
+        $('#grzp').removeClass("active");
+        $('#sckc3').removeClass("active");
+        $('#fans3').addClass("active");
+        $('#sckc').css("display","none");
+    }
+    function bb() {
+
+        $('#course2').css("display","block");
+        $('#fans2').css("display","none");
+        $('#gztitle').css("display","none");
+        $('#fans3').removeClass("active");
+        $('#sckc3').removeClass("active");
+        $('#grzp').addClass("active");
+        $('#sckc').css("display","none");
+    }
+    function sckc2() {
+        $('#course2').css("display","none");
+        $('#sckc').css("display","block");
+        $('#fans2').css("display","none");
+        $('#gztitle').css("display","none");
+        $('#fans3').removeClass("active");
+        $('#sckc3').addClass("active");
+        $('#grzp').removeClass("active");
+    }
+
+    function cc() {
+        $('#gztitle2').addClass("active");
+        $('#gztitle1').removeClass("active");
+        $('#fans4').css("display","none");
+        $('#gz4').css("display","block");
+    }
+    function dd() {
+        $('#gztitle1').addClass("active");
+        $('#gztitle2').removeClass("active");
+
+        $('#gz4').css("display","none");
+        $('#fans4').css("display","block");
+    }
+    function gz(openid1,openid2) {
+
+        $('#gzbtn1').css("display","none");
+        $('#gzbtn2').css("display","block");
+        var openid22=[[${user.openid}]];
+        var openid11=[[${gr.openid}]];
+        $.ajax({
+            url:"/gzadd",
+            contentType:"application/json;charset=utf-8",
+            data:{"openid1":openid11,"openid2":openid22},
+            datatype:"json",
+            type:"post",
+            success:function (data) {
+
+
+            }
+
+        })
+    }
+    function qxgz(openid1,openid2) {
+        $('#gzbtn2').css("display","none");
+        $('#gzbtn1').css("display","block");
+        var openid22=[[${user.openid}]];
+        var openid11=[[${gr.openid}]];
+        $.ajax({
+            url:"/qxgz",
+            contentType:"application/json;charset=utf-8",
+            data:{"openid1":openid11,"openid2":openid22},
+            datatype:"json",
+            type:"post",
+            success:function (data) {
+
+
+            }
+
+        })
+    }
+
+</script>
+    <script type="text/javascript" th:inline="javascript">
+
+        var openid222=[[${isgz}]];
+        var ismy=[[${ismy}]];
+
+        if(openid222!=null) {
+            $('#gzbtn1').css("display", "none");
+            $('#gzbtn2').css("display", "block");
+        }
+
+        if(ismy!=null){
+            $('#gzbtn1').css("display", "none");
+            $('#gzbtn2').css("display", "none");
+        }
+
+
+
+    </script>
+</html>
